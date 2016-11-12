@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import org.jibble.simpleftp.SimpleFTP;
+
+import java.io.File;
+
 public class SignUpActivity extends AppCompatActivity {
 
     //Exclicit
@@ -24,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button button;
     private String nameString, phoneString, userString, passwordString, imagePathString, imageNameString;
     private Uri uri;
+    private boolean aBoolean = true;
 
 
 
@@ -58,7 +64,17 @@ public class SignUpActivity extends AppCompatActivity {
                     Log.d("12novV1", "Have Spce");
                     MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.doremon48, "มีช่องว่าง", "กรุณากรอกให้ครบทุกช่อง");
                     myAlert.myDialog();
-                }
+                } else if (aBoolean) {
+                    //Non Choose Image
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.nobita48, "ยังไม่เลือกรูป", "กรุณาเลือกรูป");
+                    myAlert.myDialog();
+                    
+                } else {
+                    //Choose Image OK
+                    UpLoadImageToServer();
+                    
+                    
+                } 
 
             }//OnClick
         });
@@ -78,11 +94,31 @@ public class SignUpActivity extends AppCompatActivity {
 
     } // Main Method
 
+    private void UpLoadImageToServer() {
+        //Change Policy
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+        try {
+            SimpleFTP simpleFTP = new SimpleFTP();
+            simpleFTP.connect("ftp.swiftcodingthai.com", 21, "kku@swiftcodingthai.com", "Abc12345");
+            simpleFTP.bin();
+            simpleFTP.cwd("Image");
+            simpleFTP.stor(new File(imagePathString));
+            simpleFTP.disconnect();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    } // Uplaod Policy
+
     @Override
     public void onActivityResult(int requesCode, int resultCode, Intent data) {
         super.onActivityResult(requesCode, resultCode, data);
         if ((requesCode == 0) && (resultCode == RESULT_OK)) {
             Log.d("12novV1", "Result OK");
+            aBoolean = false;
 
             //show image
             uri = data.getData();
@@ -98,6 +134,13 @@ public class SignUpActivity extends AppCompatActivity {
             //Find Path of Image
             imagePathString = myFindPath(uri);
             Log.d("12novV1", "imagePath ==> " + imagePathString);
+
+            //Find Name of Image
+            imageNameString = imagePathString.substring(imagePathString.lastIndexOf("/"));
+            Log.d("12novV1", "imageName ==>" + imageNameString);
+            
+
+
 
 
         }//if
