@@ -47,6 +47,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                     //Have Spac
                     Log.d("12novV1", "Have Spce");
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.doremon48, "มีช่องว่าง", "กรุณากรอกให้ครบทุกช่อง");
+                    myAlert.myDialog();
 
 
                 }
