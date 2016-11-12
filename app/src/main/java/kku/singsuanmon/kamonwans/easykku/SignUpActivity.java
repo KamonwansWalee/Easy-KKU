@@ -1,6 +1,9 @@
 package kku.singsuanmon.kamonwans.easykku;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button button;
     private String nameString, phoneString, userString, passwordString;
+    private Uri uri;
 
 
     @Override
@@ -65,8 +69,6 @@ public class SignUpActivity extends AppCompatActivity {
                 intent.setType("image/*");  //video/*
                 startActivityForResult(Intent.createChooser(intent, "โปรเลือกรแอปูปภภาพ"), 0);
 
-
-
             }//onClick
         });
 
@@ -77,10 +79,18 @@ public class SignUpActivity extends AppCompatActivity {
         super.onActivityResult(requesCode, resultCode, data);
         if ((requesCode == 0) && (resultCode == RESULT_OK)) {
             Log.d("12novV1", "Result OK");
+
+            //show image
+            uri = data.getData();
+            try {
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }//if
-
-
-
 
 
     }// onActivityResult
