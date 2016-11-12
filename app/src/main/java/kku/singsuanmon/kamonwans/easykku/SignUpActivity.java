@@ -1,5 +1,6 @@
 package kku.singsuanmon.kamonwans.easykku;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,14 +50,38 @@ public class SignUpActivity extends AppCompatActivity {
                     Log.d("12novV1", "Have Spce");
                     MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.doremon48, "มีช่องว่าง", "กรุณากรอกให้ครบทุกช่อง");
                     myAlert.myDialog();
-
-
                 }
 
             }//OnClick
         });
 
 
+        // Image controller
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");  //video/*
+                startActivityForResult(Intent.createChooser(intent, "โปรเลือกรแอปูปภภาพ"), 0);
+
+
+
+            }//onClick
+        });
 
     } // Main Method
+
+    @Override
+    public void onActivityResult(int requesCode, int resultCode, Intent data) {
+        super.onActivityResult(requesCode, resultCode, data);
+        if ((requesCode == 0) && (resultCode == RESULT_OK)) {
+            Log.d("12novV1", "Result OK");
+        }//if
+
+
+
+
+
+    }// onActivityResult
 }  //Main Class
