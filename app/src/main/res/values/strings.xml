@@ -8,6 +8,7 @@
     <string name="message_UserFale">ไม่มีUser ในDBของเรา</string>
     <string name="title_PasswordFalse">Password ผิด</string>
     <string name="message_PasswordFalse">ลองพิมพ์ใหม่อีกครั้ง Password ผิด</string>
+    <string name="title_activity_service">ServiceActivity</string>
 
 
 </resources>
