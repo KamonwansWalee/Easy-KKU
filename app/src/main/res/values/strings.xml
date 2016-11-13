@@ -2,5 +2,12 @@
     <string name="app_name">Easy KKU</string>
 
     <string name="SignUp">Sign Up</string>
+    <string name="title_HaveSpace">มีช่องว่าง</string>
+    <string name="massege_HaveSpace">กรุณากรอกทุกช่อง</string>
+    <string name="title_UserFalse">User ผิด</string>
+    <string name="message_UserFale">ไม่มีUser ในDBของเรา</string>
+    <string name="title_PasswordFalse">Password ผิด</string>
+    <string name="message_PasswordFalse">ลองพิมพ์ใหม่อีกครั้ง Password ผิด</string>
+
 
 </resources>
