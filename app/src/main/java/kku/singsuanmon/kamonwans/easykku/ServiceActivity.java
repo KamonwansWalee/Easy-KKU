@@ -1,6 +1,8 @@
 package kku.singsuanmon.kamonwans.easykku;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ServiceActivity extends AppCompatActivity {
@@ -28,6 +30,18 @@ public class ServiceActivity extends AppCompatActivity {
         MyAdapter myAdapter = new MyAdapter(ServiceActivity.this, nameStrings, phoneStrings, imageStrings);
         listView.setAdapter(myAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                comfirmCall(nameStrings[i], phoneStrings[i]);
+
+            }// onItemClick
+        });
+
 
     }// Main Method
+
+    private void comfirmCall(String nameString, String phoneString) {
+
+    }
 } // Main Class
