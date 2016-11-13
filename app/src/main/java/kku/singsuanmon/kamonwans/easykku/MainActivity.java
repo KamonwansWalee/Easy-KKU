@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         private String truePassword;
         private boolean aBoolean = true;
 
-
         public SynUser(Context context) {
             this.context = context;
         }
@@ -118,13 +117,14 @@ public class MainActivity extends AppCompatActivity {
             Log.d("13novV2", "JSON ==> " + s);
 
             try {
+
                 JSONArray jsonArray = new JSONArray(s);
 
                 nameStrings = new String[jsonArray.length()];
                 phoneStrings = new String[jsonArray.length()];
                 imageStrings = new String[jsonArray.length()];
 
-                for (int i=0;i<jsonArray.length();i++ ) {
+                for (int i=0;i<jsonArray.length();i++) {
 
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -132,26 +132,26 @@ public class MainActivity extends AppCompatActivity {
                     phoneStrings[i] = jsonObject.getString("Phone");
                     imageStrings[i] = jsonObject.getString("Image");
 
-                    Log.d("13novV3", "name(" + i + " ) ==> " + nameStrings[i]);
+                    Log.d("13novV3", "name(" + i + ") ==> " + nameStrings[i]);
+
 
                     //Check User
                     if (userString.equals(jsonObject.getString("User"))) {
                         aBoolean = false;
                         truePassword = jsonObject.getString("Password");
-
                     }
-                }// for
+
+                }   // for
 
                 if (aBoolean) {
-                    //UserFalse
-                    MyAlert myAlert = new MyAlert(context, R.drawable.kon48, getResources().getString(R.string.title_UserFalse),
-                            getResources().getString(R.string.massege_HaveSpace));
+                    //User False
+                    MyAlert myAlert = new MyAlert(context, R.drawable.kon48,
+                            getResources().getString(R.string.title_UserFalse),
+                            getResources().getString(R.string.message_UserFale));
                     myAlert.myDialog();
 
-
-
                 } else if (passwordString.equals(truePassword)) {
-                    //passwordTrue
+                    //Password True
                     Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show();
 
                     //Intent to Service
@@ -163,14 +163,14 @@ public class MainActivity extends AppCompatActivity {
                     finish();
 
 
-
                 } else {
-                    //password False
-                    MyAlert myAlert = new MyAlert(context, R.drawable.rat48, getResources().getString(R.string.title_UserFalse),
-                            getResources().getString(R.string.massege_HaveSpace));
+                    //Password False
+                    MyAlert myAlert = new MyAlert(context, R.drawable.rat48,
+                            getResources().getString(R.string.title_PasswordFalse),
+                            getResources().getString(R.string.message_PasswordFalse));
                     myAlert.myDialog();
-
                 }
+
 
 
             } catch (Exception e) {
@@ -181,5 +181,8 @@ public class MainActivity extends AppCompatActivity {
         }   // onPost
 
     }   // SynUser
+
+
+
 
 }   // Main Class นี่คือ คลาสหลัก

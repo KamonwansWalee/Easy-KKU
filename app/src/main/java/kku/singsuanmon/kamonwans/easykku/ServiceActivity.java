@@ -1,29 +1,33 @@
 package kku.singsuanmon.kamonwans.easykku;
-
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.os.Bundle;
+import android.widget.ListView;
 
 public class ServiceActivity extends AppCompatActivity {
+
+    //Explicit
+    private ListView listView;
+    private String[] nameStrings, phoneStrings, imageStrings;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
+        //Blind Widget
+        listView = (ListView) findViewById(R.id.livFrind);
 
-}
+        //Receive Value From Intent
+        nameStrings = getIntent().getStringArrayExtra("Name");
+        phoneStrings = getIntent().getStringArrayExtra("Phone");
+        imageStrings = getIntent().getStringArrayExtra("Image");
+
+        //Create Lisview
+        MyAdapter myAdapter = new MyAdapter(ServiceActivity.this, nameStrings, phoneStrings, imageStrings);
+        listView.setAdapter(myAdapter);
+
+
+    }// Main Method
+} // Main Class
